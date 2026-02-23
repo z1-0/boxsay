@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Zig
+        uses: mlugg/setup-zig@v2
+        with:
+          version: 0.15.2
+
+      - name: Get version
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Build for x86_64-linux
+        run: |
+          zig build -Doptimize=ReleaseFast -Dtarget=x86_64-linux -Dversion=${{ steps.version.outputs.VERSION }}
+          mv zig-out/bin/boxsay boxsay-linux-x86_64-${{ steps.version.outputs.VERSION }}
+
+      - name: Build for aarch64-linux
+        run: |
+          zig build -Doptimize=ReleaseFast -Dtarget=aarch64-linux -Dversion=${{ steps.version.outputs.VERSION }}
+          mv zig-out/bin/boxsay boxsay-linux-aarch64-${{ steps.version.outputs.VERSION }}
+
+      - name: Build for x86_64-macos
+        run: |
+          zig build -Doptimize=ReleaseFast -Dtarget=x86_64-macos -Dversion=${{ steps.version.outputs.VERSION }}
+          mv zig-out/bin/boxsay boxsay-macos-x86_64-${{ steps.version.outputs.VERSION }}
+
+      - name: Build for aarch64-macos
+        run: |
+          zig build -Doptimize=ReleaseFast -Dtarget=aarch64-macos -Dversion=${{ steps.version.outputs.VERSION }}
+          mv zig-out/bin/boxsay boxsay-macos-aarch64-${{ steps.version.outputs.VERSION }}
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: boxsay-*
+          generate_release_notes: true
