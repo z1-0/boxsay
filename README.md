@@ -8,7 +8,7 @@ A command-line tool that wraps text in decorative boxes, similar to cowsay but w
 
 ## Features
 
-- 12 box styles (classic, rounded, heavy, double, dotted, dashed, ascii, star, hash, diamond, bubble, curly)
+- 10+ box styles (classic, rounded, heavy, double, dotted, dashed, ascii, star, hash, diamond, bubble)
 - Customizable padding and margin
 - Pipe support for chaining commands
 - Unicode/CJK character support
@@ -80,7 +80,6 @@ Available styles:
   hash       - Hash/pound characters
   diamond    - Diamond corners
   bubble     - Bubble corners
-  curly      - Curly corners
 ```
 
 Examples:
@@ -215,18 +214,6 @@ boxsay -s bubble "bubble"
 │  bubble  │
 │          │
 ⸤──────────⸥
-```
-
-**curly**
-```bash
-boxsay -s curly "curly"
-```
-```
-╭───────────╮
-│           │
-│   curly   │
-│           │
-╰───────────╯
 ```
 
 ### Padding & Margin

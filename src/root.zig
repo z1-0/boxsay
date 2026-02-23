@@ -122,16 +122,6 @@ pub const styles = [_]BoxStyle{
         .h = "─",
         .v = "│",
     },
-    .{
-        .name = "curly",
-        .desc = "Curly corners",
-        .tl = "╭",
-        .tr = "╮",
-        .bl = "╰",
-        .br = "╯",
-        .h = "─",
-        .v = "│",
-    },
 };
 
 pub fn getStyle(name: []const u8) ?BoxStyle {

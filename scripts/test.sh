@@ -81,8 +81,6 @@ test_contains "$($BINARY -s diamond "test")" "◆" "diamond: corners"
 
 test_contains "$($BINARY -s bubble "test")" "⸢" "bubble: corners"
 
-test_contains "$($BINARY -s curly "test")" "╭" "curly: top corner"
-
 echo ""
 echo "=== Padding ==="
 
